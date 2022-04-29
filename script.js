@@ -1,3 +1,18 @@
+function operate(operator, a, b) {
+    switch (operator) {
+        case 'add':
+            return add(a, b);
+        case 'subtract':
+            return subtract(a, b);
+        case 'multiply':
+            return multiply(a, b);
+        case 'divide':
+            return divide (a, b);
+        default:
+            break;
+    }
+}
+
 function add(a, b) {
     return a + b;
 }
