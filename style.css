@@ -7,4 +7,15 @@
 
 body {
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #a79e86;
+}
+
+.calculator {
+    height: 600px;
+    width: 400px;
+    background-color: #2d2825;
+    border-radius: 10px;
 }
