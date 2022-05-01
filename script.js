@@ -1,5 +1,6 @@
 const screen = document.querySelector('.screen');
 const numericButtons = document.querySelectorAll('.btn-num');
+const buttonDelete = document.querySelector('#btn-del');
 
 let currentInput = '';
 
@@ -7,6 +8,7 @@ function init() {
     numericButtons.forEach(button => {
         button.addEventListener('click', appendInput);
     });
+    buttonDelete.addEventListener('click', deleteInput);
 }
 
 function operate(operator, a, b) {
@@ -46,6 +48,11 @@ function appendInput(event) {
         if (currentInput.includes('.')) return;
     }
     currentInput += event.target.textContent;
+    updateScreen();
+}
+
+function deleteInput(event) {
+    currentInput = currentInput.slice(0, -1);
     updateScreen();
 }
 
