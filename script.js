@@ -1,17 +1,90 @@
 const screen = document.querySelector('.screen');
 const numericButtons = document.querySelectorAll('.btn-num');
+const operatorButtons = document.querySelectorAll('.btn-opr');
+const buttonEquals = document.querySelector('#btn-eql');
 const buttonDelete = document.querySelector('#btn-del');
 
-let currentInput = '';
+let currentValue;
+let lastValue;
+let operator;
+let result;
 
 function init() {
     numericButtons.forEach(button => {
         button.addEventListener('click', appendInput);
     });
+    operatorButtons.forEach(button => {
+        button.addEventListener('click', selectOperation);
+    });
+    buttonEquals.addEventListener('click', calculateResult);
     buttonDelete.addEventListener('click', deleteInput);
+
+    updateScreen(currentValue);
+}
+
+function appendInput(event) {
+    // Initialize currentValue if undefined
+    if (!currentValue) {
+        currentValue = '';
+    }
+    // Allow only one decimal point
+    if (event.target.textContent === '.') {
+        if (currentValue.includes('.')) return;
+    }
+    currentValue += event.target.textContent;
+    updateScreen(currentValue);
+}
+
+function deleteInput(event) {
+    // Skip if currentValue is undefined or empty
+    if (currentValue) {
+        currentValue = currentValue.slice(0, -1);
+    }
+    lastValue = currentValue;
+    updateScreen(currentValue);
+}
+
+function selectOperation(event) {
+    if (!result) {
+        result = currentValue;
+    } else if (currentValue) calculateResult();
+
+    if (event.target.textContent !== '=') lastValue = result;
+    currentValue = undefined;
+
+    switch (event.target.textContent) {
+        case '+':
+            operator = 'add';
+            break;
+        case '-':
+            operator = 'subtract';
+            break;
+        case '×':
+            operator = 'multiply';
+            break;
+        case '÷':
+            operator = 'divide';
+            break;
+        default:
+            break;
+    }
+}
+
+function calculateResult(event) {
+    if (event && !currentValue) {
+        currentValue = lastValue;
+    }
+
+    result = operate(operator, result, currentValue);
+    updateScreen(result);
+    lastValue = currentValue;
+    currentValue = undefined;
 }
 
 function operate(operator, a, b) {
+    a = a ? Number(a) : 0;
+    b = b ? Number(b) : 0;
+
     switch (operator) {
         case 'add':
             return add(a, b);
@@ -22,7 +95,8 @@ function operate(operator, a, b) {
         case 'divide':
             return divide (a, b);
         default:
-            break;
+            // Return currentValue if operator is unspecified
+            return b;
     }
 }
 
@@ -39,25 +113,17 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
-}
-
-function appendInput(event) {
-    // Allow only one decimal point
-    if (event.target.textContent === '.') {
-        if (currentInput.includes('.')) return;
+    // Don't let user divide by 0
+    if (b === 0) {
+        alert("Can't divide by 0!");
+        return undefined;
+    } else {
+        return a / b;
     }
-    currentInput += event.target.textContent;
-    updateScreen();
 }
 
-function deleteInput(event) {
-    currentInput = currentInput.slice(0, -1);
-    updateScreen();
-}
-
-function updateScreen() {
-    screen.textContent = currentInput;
+function updateScreen(value) {
+    screen.textContent = value ? value : '0';
 }
 
 init();
