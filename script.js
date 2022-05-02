@@ -3,6 +3,7 @@ const numericButtons = document.querySelectorAll('.btn-num');
 const operatorButtons = document.querySelectorAll('.btn-opr');
 const buttonEquals = document.querySelector('#btn-eql');
 const buttonDelete = document.querySelector('#btn-del');
+const buttonClear = document.querySelector('#btn-clr');
 
 let currentValue;
 let lastValue;
@@ -18,6 +19,7 @@ function init() {
     });
     buttonEquals.addEventListener('click', calculateResult);
     buttonDelete.addEventListener('click', deleteInput);
+    buttonClear.addEventListener('click', clearState)
 
     updateScreen(currentValue);
 }
@@ -124,6 +126,15 @@ function divide(a, b) {
 
 function updateScreen(value) {
     screen.textContent = value ? value : '0';
+}
+
+function clearState() {
+    currentValue = undefined;
+    lastValue = undefined;
+    operator = undefined;
+    result = undefined;
+
+    updateScreen(currentValue);
 }
 
 init();
