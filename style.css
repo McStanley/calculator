@@ -18,6 +18,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #a79e86;
+    user-select: none;
 }
 
 .calculator {
@@ -51,6 +52,7 @@ body {
     font-family: 'Digital7Mono';
     font-size: 60px;
     background-color: #bab4a1;
+    user-select: text;
 }
 
 .btn {
@@ -71,6 +73,7 @@ body {
 
 .btn-big img {
     height: 100%;
+    pointer-events: none;
 }
 
 .btn-dark {
