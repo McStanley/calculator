@@ -21,16 +21,24 @@ body {
 }
 
 .calculator {
-    height: 600px;
-    width: 400px;
+    height: 690px;
+    width: 420px;
+    padding-top: 50px;
+    padding-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2d2825;
+    border: 10px double #645247;
+    border-radius: 50px;
+}
+
+.grid {
     display: grid;
     grid-template-columns: repeat(4, 70px);
     grid-template-rows: 110px repeat(5, 70px);
-    justify-content: center;
-    align-content: center;
-    gap: 10px;
-    background-color: #2d2825;
-    border-radius: 10px;
+    gap: 15px;
 }
 
 .screen {
@@ -73,4 +81,17 @@ body {
 #btn-eql {
     background-color: #ff6138;
     color: #ffffff;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-text {
+    color: #ffffff;
+    font-family: 'Lato', sans-serif;
+    font-size: 24px;
+    font-weight: 300;
 }
