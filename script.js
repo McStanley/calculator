@@ -29,6 +29,10 @@ function appendInput(event) {
     if (!currentValue) {
         currentValue = '';
     }
+    // Limit input length to 9 digits
+    if (currentValue.length > 8) {
+        return;
+    }
     // Allow only one decimal point
     if (event.target.textContent === '.') {
         if (currentValue.includes('.')) return;
