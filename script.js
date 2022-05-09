@@ -29,8 +29,8 @@ function appendInput(event) {
     if (!currentValue) {
         currentValue = '';
     }
-    // Limit input length to 9 digits
-    if (currentValue.length > 8) {
+    // Limit input length to 10 digits
+    if (currentValue.length > 9) {
         return;
     }
     // Allow only one decimal point
@@ -81,10 +81,22 @@ function calculateResult(event) {
         currentValue = lastValue;
     }
 
-    result = operate(operator, result, currentValue);
+    result = roundResult(operate(operator, result, currentValue));
     updateScreen(result);
     lastValue = currentValue;
     currentValue = undefined;
+}
+
+// Round the result to prevent screen overflow
+function roundResult(result) {
+    if (result.toString().length > 10) {
+        if (result.toFixed().length < 9) {
+            return result.toFixed(9-result.toFixed().length);
+        } else {
+        return result.toPrecision(4);
+        }
+    }
+    return result;
 }
 
 function operate(operator, a, b) {
